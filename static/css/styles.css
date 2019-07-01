@@ -1,0 +1,29 @@
+.jtbg  {
+    background-image: url(Olympic_rings.png);
+    background-size: cover;
+    height: 100%;    
+    min-height: 300px;
+    opacity: 0.3;
+}
+
+#c1head {
+    text-align: center;
+}
+#c1thead {
+    padding-left: 10px;
+}
+
+#citytable {
+    font-size: 18px;
+    border: 1px solid black;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.tnum {
+    text-align: right;
+}
+

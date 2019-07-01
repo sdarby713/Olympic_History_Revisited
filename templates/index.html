@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Olympic History</title>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css">   
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Our CSS -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<style>     
+  /* .jumbotron {
+        background-image: url('../static/image/background2.jpg');
+        background-size: cover;
+       
+      }      */
+  
+  #yearoption {
+    background-color : white
+  }      
+  
+  .panel-heading {
+    background-color:rgb(33, 156, 146);
+  }
+  
+  .panel { 
+    border-style: solid;
+    border-width: 2px;
+    /* border-color: rgb(56, 158, 150); */
+    border-radius: 5px;      
+  }
+
+  hr {
+  display: block;
+  height: 1px;
+  border: 4;
+  border-top: 1px solid #ccc;
+  margin-right: 80px;
+  margin-left:80px;
+  padding-top: 30px;
+  padding-bottom:0px;
+  margin-bottom:10px
+}
+ 
+  .panel-body {
+  /* padding: 15px;
+  margin: 8px; */
+  background-color: #8d8e913b;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 18px;
+  color: rgb(34, 33, 33);
+  display: block;
+  line-height: 1.5em;}
+
+  #FZgauge {
+    width: 95%; 
+    height: 95%; 
+       
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <!-- <h1 style="color:rgb(156, 33, 156)">The Summer Olympics</h1>
+        <h2 style="color:rgb(156, 33, 156)">120 years of Olympic History!</h2>
+        <p style="color:rgb(156, 33, 156)">Gao, Zou, Darby</p> -->
+        <h1>The Summer Olympics</h1>
+        <h2>120 years of Olympic History!</h2>
+        <p>Gao, Zou, Darby</p>        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <h5>SELECT Year(s):</h5>
+          <label for="frYear">From:</label>
+          <input type="text" class="form-control" id="frYear" placeholder="1896">
+          <label for="toYear">To:</label>
+          <input type="text" class="form-control" id="toYear" placeholder="2016">
+        </div>
+      </div>
+      <div class="col-md-2">
+        <h5>SELECT NOC:</h5>
+        <select id="selNOC"></select><br>
+      </div>  
+      <div class="col-md-2">
+        <h5>SELECT Sport:</h5>
+        <select id="selSport"></select><br>
+      </div>
+      <div class="col-md-2">
+        <h5>SELECT Event Type:</h5>
+        <div class="checkbox">
+          <label><input type="checkbox" id="cb1" value="" checked>Men's Events</label>
+          <label><input type="checkbox" id="cb2" value="" checked>Women's Events</label>
+          <label><input type="checkbox" id="cb3" value="" checked>Mixed/Open Events</label>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <h5>SELECT Medals:</h5>
+        <div class="checkbox">
+          <label><input type="checkbox" id="cb4" value="" checked>Include Gold</label>
+          <label><input type="checkbox" id="cb5" value="" checked>Include Silver</label>
+          <label><input type="checkbox" id="cb6" value="" checked>Include Bronze</label>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button id="filter-btn" type="submit" class="btn btn-default">Apply Selections</button>
+      </div>
+    </div>
+
+      <!-- Li put data here -->
+
+    <!-- Li's bar chart  --> 
+    <div class="row">      
+      <div class="col-md-12">            
+        <div id="Libar" style ="width: 90%; height:500px"></div>  
+      </div>
+   </div> 
+  
+   <hr>
+  
+     <!-- Li's bar chart over  --> 
+    <div class="row">
+      <div class="col-md-9">
+        <div id=c1head>
+          <h3>Cities Hosting the Summer Olympics</h3>
+          <h4>Indicating Number of Nations Participating</h4>
+        </div>
+        <!-- <iframe src="http:\\127.0.0.1:5001" width="840" height="500"></iframe> -->
+        <iframe src="https://sdarby713-ocities.herokuapp.com" width="840" height="640"></iframe>
+      </div>
+      <div class="col-md-3">
+        <div id=c1thead>
+          <h3>Host Cities</h3>
+          <h4>Running the Numbers...</h4>
+        </div>     
+        <table id=citytable>
+          <tbody>
+            <tr>
+              <td>Year:</td>
+              <td id=c1d></td>
+            </tr>
+            <tr>
+              <td>City:</td>
+              <td id=c2d></td>
+            </tr>
+            <tr>
+              <td>Nations:</td>
+              <td class=tnum id=c3d></td>
+            </tr>
+            <tr>
+              <td>Sports:</td>
+              <td class=tnum id=c6d></td>
+            </tr>
+            <tr>
+              <td>Events:</td>
+              <td class=tnum id=c7d></td>
+            </tr>
+            <tr>
+              <td colspan="2">Athletes:</td>
+            </tr>
+            <tr>
+              <td>  Men:</td>
+              <td class=tnum id=c4d></td>
+            </tr>
+            <tr>
+              <td>  Women:</td>
+              <td class=tnum id=c5d></td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <p>Based on "From Year" selection above</p>
+        <br>
+        <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Olympic_rings_without_rims.svg" width="180">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="chart2"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="chart3"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="chart4"></div>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+  
+
+
+
+   
+  
+  <!-- ********************** -->
+
+  <!-- Fawn put data here -->
+  <!-- Buildup Olypic profit panel -->
+
+  <div class="row">  
+        
+    <div class="col-md-3" style="padding-left:120px; margin-bottom:30px;margin-top:10px">
+      <!-- <h5><strong> Select an Olympic Year</strong></h5>
+      <select id="selDataset" onchange="myFunction3()"> </select> -->
+    </div>
+
+    <div class="col-md-9">
+      <h2 style="margin-left:200px;"> The Economics of Hosting the Olympic Games</h2>
+    </div>
+  </div> 
+   
+  <div class="row" style = "padding-left:100px;">
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <div class="panel-heading" >
+          <h5 class="panel-title" id="olycity" style="color:black; text-align: center;" ></h5>
+        </div>
+        <div id="fzmetadata" class="panel-body" ></div>
+      </div>
+    </div> 
+    <!-- Buildup gause plot-->
+    <div class="col-md-6">
+      <div id="FZgauge"></div>
+    </div>
+    <div class="col-md-3">       
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+         <div id="FZbar1"></div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+           <div id="FZbar2"></div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+            <div id="FZbar3"></div>
+      </div>
+  </div>
+
+
+
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script> -->
+ 
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.9/justgage.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.1/raphael-min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="{{ url_for('static', filename='js/config.js') }}"></script> 
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script> 
+  <!-- <script src="{{ url_for('static', filename='js/fawn.js') }}"></script>  -->
+  <!-- <script src="{{ url_for('static', filename='js/fawn2.js') }}"></script>  -->
+  <!-- <script src="{{ url_for('static', filename='js/lee.js') }}"></script>  -->
+</body>
+
+</html>
