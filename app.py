@@ -30,12 +30,11 @@ Base.prepare(db.engine, reflect=True)
 medals = Base.classes.medals
 NOC = Base.classes.NOC
 olympiad = Base.classes.olympiad
-
+sportlist = Base.classes.sportnames
 @app.route("/")
 def index():
     """Return the homepage."""
     return render_template("index.html")
-
 
 @app.route("/names")
 def names():
@@ -52,6 +51,22 @@ def names():
     # Return a list of the NOCs
     return data_json
     # return jsonify("This is it!")
+
+@app.route("/sports")
+def listSports():
+    """Return a list of Sport names."""
+
+    # Use Pandas to perform the sql query
+    stmt = db.session.query(sportlist).statement
+    qResults = pd.read_sql_query(stmt, db.session.bind)
+
+    data_json = qResults.to_json(orient='records')
+    
+    print(data_json)
+
+    # Return a list of the sports
+    return data_json
+
 
 @app.route("/olympiads")
 def years():

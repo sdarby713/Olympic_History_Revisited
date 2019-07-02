@@ -7,35 +7,46 @@ function init() {
   var selector2 = d3.select("#selNOC");
   var selector3 = d3.select("#selSport");
 
-  // Populate the NOC selector list
+  // Populate the NOC selector list 
   d3.json(`/names`).then(function(nocdata) {
     selector2
-      .append("option")
-      .text("All")
-      .property("value", "All") 
-    nocdata.forEach((datum) => {
-      selector2
         .append("option")
-        .text(datum.NOC)
-        .property("value", datum.NOC)  });
+        .text("All")
+        .property("value", "All");
+    nocdata.forEach((datum) => {
+      var label = `${datum.NOC} - ${datum.Name}`;
+      if (datum.Num_Medals > 0)  {
+        selector2
+            .append("option")
+            .text(datum.NOC)
+            .property("value", datum.NOC); 
+      }
+    }); 
   });
   
 
   // Populate the Sport selector list
-  var sportList = ["All", "Athletics", "Cycling", "Diving", "Fencing", "Gymnastics", "Rowing", "Swimming", "Weightlifting"];
-  sportList.forEach((sport) => {
+  d3.json(`/sports`).then(function(sportdata) {
+    console.log ("****", sportdata);
     selector3
-      .append("option")
-      .text(sport)
-      .property("value", sport);
+        .append("option")
+        .text("All")
+        .property("value", "All");
+    sportdata.forEach((sport) => {
+      console.log(sport.name);
+      selector3
+        .append("option")
+        .text(sport.name)
+        .property("value", sport.name);
     });
+  });
 
 
   // Use the defaults to build the initial plots
   const defaultSelections = [1896, 2016, "All", "All", "MWXGSB"];
   buildCharts(defaultSelections);
+};
 
-}
 function buildCharts(sels) {
   console.log ("entering buildCharts");
 
@@ -381,7 +392,8 @@ btn.on("click", function() {
 
   var fromYear = d3.select("#frYear").property("value");
   var toYear   = d3.select("#toYear").property("value");
-  var selectedNOC = d3.select("#selNOC").property("value");
+  var selectedNOCx = d3.select("#selNOC").property("value");
+  var selectedNOC  = selectedNOCx.substring(0,3);
   var selectedSport = d3.select("#selSport").property("value");
 
   var cb1 = d3.select("#cb1").property("checked");
