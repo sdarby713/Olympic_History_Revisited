@@ -62,7 +62,7 @@ def listSports():
 
     data_json = qResults.to_json(orient='records')
     
-    print(data_json)
+    # print(data_json)
 
     # Return a list of the sports
     return data_json

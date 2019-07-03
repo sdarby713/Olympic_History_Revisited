@@ -395,6 +395,10 @@ btn.on("click", function() {
   var selectedNOCx = d3.select("#selNOC").property("value");
   var selectedNOC  = selectedNOCx.substring(0,3);
   var selectedSport = d3.select("#selSport").property("value");
+  // it was necessary to shorten the names of certain sports, so we need to restore them in order for them to match
+  if (selectedSport === "Mod Pentathln")   { selectedSport = "Modern Pentathlon";  }
+  if (selectedSport === "Rhyth Gymncs")    { selectedSport = "Rhythmic Gymnastics";  }
+  if (selectedSport === "Sync Swimng")     { selectedSport = "Synchronized Swimming";  }
 
   var cb1 = d3.select("#cb1").property("checked");
   var cb2 = d3.select("#cb2").property("checked");
