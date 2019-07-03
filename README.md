@@ -18,3 +18,5 @@ I took steps to fix the first three points.  In addition, I made a few other alt
 
 ### Future adjustments:
 Because we envisioned showing participating nations as well as medal-winning ones, we kept a considerable number of data rows which are never used on this page.  What we could do is to keep only rows for NOC-Years-Sports where at least one medal is won.  Then we could re-add previously excluded data for additional sports.  It would make the drop-down selector for NOCs a little more manageable.
+### Update
+This has been done.  We now provide information about medals in all Olympic sports throughout its history.
