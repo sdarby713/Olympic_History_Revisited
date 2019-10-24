@@ -1,6 +1,11 @@
 # Olympic_History_Revisited
 https://sdarby713-olympic-medals.herokuapp.com/
 
+### Originally a Team Project
+- The "Summer Olympics Winner Countries By Medals" chart was originally created by Li Gou.
+- The "Economics of Hosting the Olympic Games" section was created by Fawn Zou.
+- Other elements of the page were designed and created by Steve Darby.
+
 ### A few issues with the original Olympic_History project, 
 largely due to unexpectantly losing a project team member and running out of time:
 - The medals table logic did not regard the selection panel, therefore missed out on some flexibility and function
@@ -21,3 +26,4 @@ I took steps to fix the first three points.  In addition, I made a few other alt
 Because we envisioned showing participating nations as well as medal-winning ones, we kept a considerable number of data rows which are never used on this page.  What we could do is to keep only rows for NOC-Years-Sports where at least one medal is won.  Then we could re-add previously excluded data for additional sports.  It would make the drop-down selector for NOCs a little more manageable.
 ### Update
 This has been done.  We now provide information about medals in all Olympic sports throughout its history.
+And for an extra splash of color, I've added a background image for the jumbotron at the top.
